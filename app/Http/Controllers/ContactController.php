@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Contact;
-
+use Illuminate\Support\Facades\Log;
 class ContactController extends Controller
 {
     // Submit contact form
@@ -23,7 +23,6 @@ class ContactController extends Controller
                 'message' => 'Contact form submitted and saved successfully',
                 'contact' => $contact,
             ], 201);
-
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Failed to save contact data',
@@ -34,19 +33,24 @@ class ContactController extends Controller
 
     // Get all contacts
     public function index()
-    {
-        try {
-            $contacts = Contact::orderBy('created_at', 'desc')->get();
+{
+    try {
+        $contacts = Contact::orderBy('created_at', 'desc')->get();
 
-            return response()->json($contacts, 200);
+        return response()->json($contacts, 200);
+    } catch (\Exception $e) {
+        Log::error('Failed to fetch contacts', [
+            'error' => $e->getMessage(),
+        ]);
 
-        } catch (\Exception $e) {
-            return response()->json([
-                'message' => 'Failed to fetch contacts',
-                'error' => $e->getMessage(),
-            ], 500);
-        }
+        return response()->json([
+            'message' => 'Failed to fetch contacts',
+            'error' => $e->getMessage(),
+        ], 500);
     }
+}
+
+
 
     // Delete a contact by id
     public function destroy($id)
@@ -58,7 +62,6 @@ class ContactController extends Controller
             return response()->json([
                 'message' => 'Contact deleted successfully',
             ], 200);
-
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Failed to delete contact',

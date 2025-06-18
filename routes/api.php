@@ -12,8 +12,7 @@ use App\Http\Controllers\ContactController;
 */
 
 // Auth Routes
-Route::post('/login', [AuthController::class, 'login']);
-
+Route::post('/login', [AuthController::class, 'login'])->name('login');
 // Project Posts - Public View (if applicable)
 Route::get('/project-posts', [ProjectPostController::class, 'index']);
 Route::get('/project-posts/{id}', [ProjectPostController::class, 'show']);
