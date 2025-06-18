@@ -11,11 +11,11 @@ class AdminUserSeeder extends Seeder
     public function run()
     {
         User::updateOrCreate(
-            ['email' => 'admin@gmail.com'], // duplicate এড়াতে কন্ডিশন
+            ['email' => 'admin@gmail.com'],
             [
                 'name' => 'Admin User',
-                'password' => Hash::make('12345678'), // পাসওয়ার্ড
-                'is_admin' => true, // users টেবিলে এই কলাম থাকা দরকার
+                'password' => Hash::make('12345678'),
+                'is_admin' => true, 
             ]
         );
     }
