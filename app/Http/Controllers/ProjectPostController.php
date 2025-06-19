@@ -10,16 +10,17 @@ class ProjectPostController extends Controller
 {
     // List posts with pagination
     public function index()
-    {
-        $posts = ProjectPost::paginate(6);
+{
+    // Order posts by created_at descending (newest first)
+    $posts = ProjectPost::orderBy('created_at', 'desc')->paginate(6);
 
-        $posts->getCollection()->transform(function ($post) {
-            $post->image_url = $post->image ? asset('storage/' . $post->image) : null;
-            return $post;
-        });
+    $posts->getCollection()->transform(function ($post) {
+        $post->image_url = $post->image ? asset('storage/' . $post->image) : null;
+        return $post;
+    });
 
-        return response()->json($posts);
-    }
+    return response()->json($posts);
+}
 
     // Create a new post with optional image upload
     public function store(Request $request)

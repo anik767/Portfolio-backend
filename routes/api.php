@@ -26,6 +26,8 @@ Route::post('/contact', [ContactController::class, 'submit']);
 |--------------------------------------------------------------------------
 */
 
+
+
 Route::middleware('auth:sanctum')->group(function () {
     // Authenticated user info
     Route::get('/user', [AuthController::class, 'user']);
