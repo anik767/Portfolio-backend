@@ -20,21 +20,18 @@ class Kernel extends HttpKernel
      */
     protected $middlewareGroups = [
         'web' => [
+            \Illuminate\Cookie\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
             // \Illuminate\Session\Middleware\AuthenticateSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \App\Http\Middleware\VerifyCsrfToken::class,
         ],
 
         'api' => [
-            // Sanctum middleware for SPA (stateful authentication)
             \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
-
-            // Rate limiter
             'throttle:api',
-
-            // Route bindings
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
     ];

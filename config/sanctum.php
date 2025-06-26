@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Str;
 use Laravel\Sanctum\Sanctum;
 
 return [
@@ -11,10 +12,10 @@ return [
     |
     | Domains/hosts that will receive stateful API authentication cookies.
     | Typically includes your frontend domains that call the backend.
+    | Make sure to include port if applicable (e.g. localhost:3000).
     |
     */
-
-    'stateful' => explode(',', env('SANCTUM_STATEFUL_DOMAINS', 'localhost,localhost:3000,127.0.0.1,127.0.0.1:8000,::1')),
+    'stateful' => explode(',', env('SANCTUM_STATEFUL_DOMAINS', 'localhost:3000,127.0.0.1:3000')),
 
     /*
     |--------------------------------------------------------------------------
@@ -22,9 +23,9 @@ return [
     |--------------------------------------------------------------------------
     |
     | Authentication guards Sanctum will check when authenticating a request.
+    | For session-based auth, 'web' guard is used.
     |
     */
-
     'guards' => [
         'web' => [
             'driver' => 'session',
@@ -37,16 +38,14 @@ return [
         ],
     ],
 
-
     /*
     |--------------------------------------------------------------------------
     | Expiration Minutes
     |--------------------------------------------------------------------------
     |
-    | Minutes until tokens expire, null means never expire.
+    | Minutes until tokens expire, null means tokens never expire.
     |
     */
-
     'expiration' => null,
 
     /*
@@ -57,7 +56,6 @@ return [
     | Optional token prefix for new tokens.
     |
     */
-
     'token_prefix' => env('SANCTUM_TOKEN_PREFIX', ''),
 
     /*
@@ -68,7 +66,6 @@ return [
     | Middleware Sanctum uses while processing the request.
     |
     */
-
     'middleware' => [
         'authenticate_session' => Laravel\Sanctum\Http\Middleware\AuthenticateSession::class,
         'encrypt_cookies' => Illuminate\Cookie\Middleware\EncryptCookies::class,
