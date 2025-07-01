@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Sanctum\HasApiTokens;
@@ -15,15 +15,14 @@ class User extends Authenticatable
         'email',
         'password',
         'is_admin',
+        'ip_address'
     ];
 
     protected $hidden = [
         'password',
-        'remember_token',
     ];
 
     protected $casts = [
-        'email_verified_at' => 'datetime',
         'is_admin' => 'boolean',
     ];
 }

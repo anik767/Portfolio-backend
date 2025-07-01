@@ -38,7 +38,7 @@ Route::middleware(['web', 'auth:sanctum'])->prefix('admin')->group(function () {
 
     // Authenticated user info
     Route::get('/user', [AuthController::class, 'user']);
-
+    Route::post('/password-reset', [AuthController::class, 'resetPassword']);
     // Project Posts CRUD for authenticated users
     Route::get('/project-posts/{id}', [ProjectPostController::class, 'show']);
     Route::post('/project-posts', [ProjectPostController::class, 'store']);
